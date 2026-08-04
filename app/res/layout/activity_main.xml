@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0f0f1a">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔥 MAHAKAL"
+            android:textSize="36sp"
+            android:textColor="#e94560"
+            android:textStyle="bold"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚡ Attack Tool"
+            android:textSize="14sp"
+            android:textColor="#888"
+            android:layout_marginBottom="25dp"/>
+
+        <!-- Status -->
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💀 Ready"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:background="#1a1a2e"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- IP Input -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎯 Target IP"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_marginBottom="5dp"/>
+
+        <EditText
+            android:id="@+id/ipInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter IP Address"
+            android:textColorHint="#666"
+            android:textColor="#fff"
+            android:background="@drawable/edit_text_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="15dp"
+            android:text="192.168.1.1"/>
+
+        <!-- Port Input -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔌 Target Port"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_marginBottom="5dp"/>
+
+        <EditText
+            android:id="@+id/portInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Port Number"
+            android:textColorHint="#666"
+            android:textColor="#fff"
+            android:background="@drawable/edit_text_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="15dp"
+            android:inputType="number"
+            android:text="8080"/>
+
+        <!-- Time Selection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏱️ Attack Duration"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:layout_marginBottom="5dp"/>
+
+        <SeekBar
+            android:id="@+id/timeSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="300"
+            android:progress="60"
+            android:progressTint="#e94560"
+            android:thumbTint="#e94560"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/timeDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60s"
+            android:textColor="#e94560"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/startCapture"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="🔍 Start VPN Capture"
+                android:background="@drawable/button_primary"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/captureFromVPN"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="📥 Get IP from Capture"
+                android:background="@drawable/button_secondary"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/startAttack"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="🚀 START ATTACK"
+                android:background="@drawable/button_danger"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/stopAttack"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="⏹️ STOP ATTACK"
+                android:background="#333"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+        <!-- Footer -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚠️ For Educational Use Only"
+            android:textColor="#555"
+            android:textSize="11sp"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+</ScrollView>
